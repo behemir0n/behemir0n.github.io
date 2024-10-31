@@ -22,10 +22,13 @@
 
             try {
                 const response = await fetch(url);
+                console.log("response: ", response)
                 const data = await response.json();
+                console.log("data: ", data)
 
                 // Сортировка данных (например, по первому полю)
                 const sortedData = data.sort((a, b) => a[Object.keys(a)[0]] > b[Object.keys(b)[0]] ? 1 : -1);
+                console.log("sortedData: ", sortedData)
 
                 // Преобразуем отсортированные данные в Excel-формат
                 const worksheet = XLSX.utils.json_to_sheet(sortedData);
