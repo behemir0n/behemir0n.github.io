@@ -121,6 +121,11 @@ section { padding: 100px 0; }
 .contact-links { display: flex; flex-direction: column; gap: 10px; }
 .contact-link { display: flex; align-items: center; gap: 12px; padding: 13px 18px; background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; color: var(--text-dim); text-decoration: none; font-size: 13px; transition: all 0.2s; }
 .contact-link:hover { border-color: var(--green-dim); color: var(--green); transform: translateX(4px); }
+.phone-reveal { cursor: pointer; }
+.phone-reveal .phone-hint { display: inline; color: var(--text-muted); font-style: italic; }
+.phone-reveal .phone-number { display: none; }
+.phone-reveal:hover .phone-hint { display: none; }
+.phone-reveal:hover .phone-number { display: inline; color: var(--green); }
 .contact-link-icon { color: var(--green); font-size: 14px; flex-shrink: 0; width: 20px; text-align: center; }
 .contact-form { display: flex; flex-direction: column; gap: 16px; }
 .form-group { display: flex; flex-direction: column; gap: 6px; }
@@ -308,10 +313,10 @@ footer span { color: var(--green); }
         <p>I'm currently open to new opportunities in DevOps, SRE, or infrastructure roles. Feel free to reach out — I usually respond within 24 hours.</p>
         <div class="contact-links">
           <a href="mailto:ruslan.duhhov@gmail.com" class="contact-link"><span class="contact-link-icon">✉</span>ruslan.duhhov@gmail.com</a>
-          <!-- Phone: obfuscated via JS, bots cannot copy/scrape -->
-          <div class="contact-link" id="phone-link" style="cursor:pointer;">
+
+          <div class="contact-link phone-reveal" data-a="+372" data-b="535" data-c="95575">
             <span class="contact-link-icon">☎</span>
-            <span id="phone-display">[ click to show number ]</span>
+            <span class="phone-hint">hover to show</span><span class="phone-number" data-phone="+372 535 95575"></span>
           </div>
           <a href="https://www.linkedin.com/in/ruslan-duhhov/" target="_blank" class="contact-link"><span class="contact-link-icon">in</span>LinkedIn Profile</a>
           <a href="https://github.com/behemir0n" target="_blank" class="contact-link"><span class="contact-link-icon">⌥</span>GitHub Profile</a>
@@ -336,18 +341,7 @@ footer span { color: var(--green); }
 </footer>
 
 <script>
-// Phone obfuscation — assembled at runtime, invisible to bots scraping HTML
-document.addEventListener('DOMContentLoaded', function() {
-  var p = ['\u002B372', '535', '95575'];
-  var el = document.getElementById('phone-link');
-  if (el) {
-    el.addEventListener('click', function handler() {
-      document.getElementById('phone-display').textContent = p.join('\u0020');
-      el.style.cursor = 'default';
-      el.removeEventListener('click', handler);
-    });
-  }
-});
+// Phone reveal handled via CSS hover (no JS needed)
 
 // Formspree AJAX submit
 document.getElementById('contact-form').addEventListener('submit', async function(e) {
