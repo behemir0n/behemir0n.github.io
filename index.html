@@ -309,7 +309,7 @@ footer span { color: var(--green); }
         <div class="contact-links">
           <a href="mailto:ruslan.duhhov@gmail.com" class="contact-link"><span class="contact-link-icon">✉</span>ruslan.duhhov@gmail.com</a>
           <!-- Phone: obfuscated via JS, bots cannot copy/scrape -->
-          <div class="contact-link" id="phone-link" style="cursor:pointer;" onclick="revealPhone(this)">
+          <div class="contact-link" id="phone-link" style="cursor:pointer;">
             <span class="contact-link-icon">☎</span>
             <span id="phone-display">[ click to show number ]</span>
           </div>
@@ -337,13 +337,17 @@ footer span { color: var(--green); }
 
 <script>
 // Phone obfuscation — assembled at runtime, invisible to bots scraping HTML
-function revealPhone(el) {
-  const parts = ['+372', '535', '95575'];
-  const num = parts.join(' ');
-  document.getElementById('phone-display').textContent = num;
-  el.style.cursor = 'default';
-  el.onclick = null;
-}
+(function() {
+  var p = ['\u002B372', '535', '95575'];
+  var el = document.getElementById('phone-link');
+  if (el) {
+    el.addEventListener('click', function handler() {
+      document.getElementById('phone-display').textContent = p.join('\u0020');
+      el.style.cursor = 'default';
+      el.removeEventListener('click', handler);
+    });
+  }
+})();
 
 // Formspree AJAX submit
 document.getElementById('contact-form').addEventListener('submit', async function(e) {
@@ -385,8 +389,23 @@ const observer = new IntersectionObserver((entries) => {
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+
 document.querySelectorAll('.skill-card, .timeline-item').forEach(el => observer.observe(el));
+
+// Fallback: if user is already scrolled or observer fires too early
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.skill-card, .timeline-item').forEach(el => {
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) {
+        el.classList.add('visible');
+        const bar = el.querySelector('.skill-bar');
+        if (bar) bar.style.width = bar.dataset.width + '%';
+      }
+    });
+  }, 300);
+});
 
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('nav a[href^=
