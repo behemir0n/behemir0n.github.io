@@ -122,8 +122,9 @@ section { padding: 100px 0; }
 .contact-link { display: flex; align-items: center; gap: 12px; padding: 13px 18px; background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; color: var(--text-dim); text-decoration: none; font-size: 13px; transition: all 0.2s; }
 .contact-link:hover { border-color: var(--green-dim); color: var(--green); transform: translateX(4px); }
 .phone-reveal { cursor: pointer; }
+.phone-reveal .phone-text { font-size: 0; }
 .phone-reveal .phone-text::before { content: "hover to show number"; color: var(--text-muted); font-style: italic; font-size: 13px; transition: color 0.2s; }
-.phone-reveal:hover .phone-text::before { content: "+372 535 95575"; color: var(--green); font-style: normal; }
+.phone-reveal:hover .phone-text::before { content: "+372 535 95575"; color: var(--green); font-style: normal; }
 .contact-link-icon { color: var(--green); font-size: 14px; flex-shrink: 0; width: 20px; text-align: center; }
 .contact-form { display: flex; flex-direction: column; gap: 16px; }
 .form-group { display: flex; flex-direction: column; gap: 6px; }
