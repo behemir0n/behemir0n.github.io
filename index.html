@@ -85,7 +85,7 @@ section { padding: 100px 0; }
 
 .timeline { position: relative; }
 .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--green), transparent); }
-.timeline-item { padding-left: 40px; padding-bottom: 52px; position: relative; opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+.timeline-item { padding-left: 40px; padding-bottom: 52px; position: relative; opacity: 1; transform: translateY(0); transition: opacity 0.6s, transform 0.6s; }
 .timeline-item.visible { opacity: 1; transform: translateY(0); }
 .timeline-dot { position: absolute; left: -5px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px rgba(63,185,80,0.5); border: 2px solid var(--bg); }
 .job-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
@@ -337,7 +337,7 @@ footer span { color: var(--green); }
 
 <script>
 // Phone obfuscation — assembled at runtime, invisible to bots scraping HTML
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   var p = ['\u002B372', '535', '95575'];
   var el = document.getElementById('phone-link');
   if (el) {
@@ -347,7 +347,7 @@ footer span { color: var(--green); }
       el.removeEventListener('click', handler);
     });
   }
-})();
+});
 
 // Formspree AJAX submit
 document.getElementById('contact-form').addEventListener('submit', async function(e) {
