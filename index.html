@@ -1,1 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruslan Duhhov — DevOps/SRE Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #070a0f; --bg2: #0d1117; --bg3: #131920;
+  --border: #1e2d20; --green: #3fb950; --green-dim: #2ea043;
+  --green-glow: rgba(63,185,80,0.15); --cyan: #58d4c8; --orange: #e3a246;
+  --text: #e6edf3; --text-dim: #8b949e; --text-muted: #484f58;
+  --card: #0d1117; --card-border: #1e2a1e;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Space Mono', monospace; font-size: 14px; line-height: 1.7; overflow-x: hidden; }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
+body::after { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(63,185,80,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(63,185,80,0.03) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; z-index: 0; }
+::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 3px; }
 
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 60px; background: rgba(7,10,15,0.9); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 18px; color: var(--green); letter-spacing: -0.5px; }
+.nav-logo span { color: var(--text-dim); font-weight: 400; }
+nav ul { display: flex; gap: 32px; list-style: none; }
+nav a { color: var(--text-dim); text-decoration: none; font-size: 12px; letter-spacing: 0.05em; transition: color 0.2s; position: relative; }
+nav a::before { content: '//'; color: var(--green); margin-right: 4px; opacity: 0; transition: opacity 0.2s; }
+nav a:hover { color: var(--text); } nav a:hover::before { opacity: 1; }
+.nav-status { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--green); }
+.status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity:1; box-shadow: 0 0 0 0 rgba(63,185,80,0.4); } 50% { opacity:.8; box-shadow: 0 0 0 5px rgba(63,185,80,0); } }
+
+main { position: relative; z-index: 1; }
+section { padding: 100px 0; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 48px; }
+
+#hero { min-height: 100vh; display: flex; align-items: center; padding-top: 60px; position: relative; overflow: hidden; }
+.hero-glow { position: absolute; top: 20%; right: -10%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(63,185,80,0.06) 0%, transparent 70%); pointer-events: none; }
+.hero-content { max-width: 680px; }
+.hero-tag { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; color: var(--green); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 28px; padding: 6px 14px; border: 1px solid rgba(63,185,80,0.3); border-radius: 2px; background: rgba(63,185,80,0.05); animation: fadeInUp 0.6s ease both; }
+.hero-name { font-family: 'Syne', sans-serif; font-size: clamp(48px, 7vw, 80px); font-weight: 800; line-height: 1.0; letter-spacing: -2px; color: var(--text); margin-bottom: 8px; animation: fadeInUp 0.6s 0.1s ease both; }
+.hero-name .accent { color: var(--green); }
+.hero-role { font-family: 'Syne', sans-serif; font-size: clamp(16px, 2.5vw, 24px); font-weight: 600; color: var(--text-dim); margin-bottom: 32px; letter-spacing: -0.5px; animation: fadeInUp 0.6s 0.2s ease both; }
+.hero-role .tech { color: var(--cyan); }
+.hero-bio { color: var(--text-dim); font-size: 13px; line-height: 1.9; max-width: 540px; margin-bottom: 48px; border-left: 2px solid var(--green); padding-left: 20px; animation: fadeInUp 0.6s 0.3s ease both; }
+.hero-bio strong { color: var(--green); font-weight: 700; }
+.hero-links { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeInUp 0.6s 0.4s ease both; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: 0.05em; text-decoration: none; border-radius: 2px; transition: all 0.2s; cursor: pointer; border: none; }
+.btn-primary { background: var(--green); color: #000; font-weight: 700; }
+.btn-primary:hover { background: #4dce5e; box-shadow: 0 0 20px rgba(63,185,80,0.35); transform: translateY(-1px); }
+.btn-outline { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+.btn-outline:hover { border-color: var(--green); color: var(--green); transform: translateY(-1px); }
+
+.hero-terminal { position: absolute; right: 48px; top: 50%; transform: translateY(-50%); width: 380px; background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(63,185,80,0.05); animation: fadeInUp 0.7s 0.5s ease both; }
+.terminal-header { display: flex; align-items: center; gap: 8px; padding: 10px 16px; background: var(--bg3); border-bottom: 1px solid var(--border); }
+.t-dot { width: 11px; height: 11px; border-radius: 50%; }
+.t-dot.red { background: #ff5f57; } .t-dot.yellow { background: #febc2e; } .t-dot.green { background: #28c840; }
+.terminal-title { font-size: 11px; color: var(--text-muted); margin-left: 6px; }
+.terminal-body { padding: 20px; font-size: 12px; line-height: 1.9; }
+.t-line { display: flex; gap: 8px; } .t-prompt { color: var(--green); } .t-cmd { color: var(--text); }
+.t-output { color: var(--text-dim); padding-left: 16px; } .t-key { color: var(--cyan); } .t-val { color: var(--orange); }
+.t-cursor { display: inline-block; width: 8px; height: 14px; background: var(--green); vertical-align: middle; animation: blink 1.2s infinite; }
+@keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+
+.section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 60px; }
+.section-num { font-size: 11px; color: var(--green); letter-spacing: 0.1em; }
+.section-title { font-family: 'Syne', sans-serif; font-size: 32px; font-weight: 800; color: var(--text); letter-spacing: -1px; }
+.section-line { flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+
+#skills { background: var(--bg2); }
+.skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.skill-card { background: var(--bg); border: 1px solid var(--card-border); border-radius: 4px; padding: 20px 24px; transition: border-color 0.2s, transform 0.2s; position: relative; overflow: hidden; }
+.skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(to right, var(--green), var(--cyan)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+.skill-card:hover { border-color: var(--green-dim); transform: translateY(-2px); } .skill-card:hover::before { transform: scaleX(1); }
+.skill-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.skill-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: var(--text); }
+.skill-level { font-size: 10px; padding: 3px 10px; border-radius: 2px; letter-spacing: 0.08em; text-transform: uppercase; }
+.level-advanced { background: rgba(63,185,80,0.15); color: var(--green); border: 1px solid rgba(63,185,80,0.3); }
+.level-intermediate { background: rgba(88,212,200,0.12); color: var(--cyan); border: 1px solid rgba(88,212,200,0.25); }
+.level-beginner { background: rgba(227,162,70,0.12); color: var(--orange); border: 1px solid rgba(227,162,70,0.25); }
+.skill-bar-bg { height: 3px; background: var(--bg3); border-radius: 2px; overflow: hidden; }
+.skill-bar { height: 100%; background: linear-gradient(to right, var(--green), var(--cyan)); border-radius: 2px; width: 0; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); }
+
+.timeline { position: relative; }
+.timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: linear-gradient(to bottom, var(--green), transparent); }
+.timeline-item { padding-left: 40px; padding-bottom: 52px; position: relative; opacity: 0; transform: translateY(20px); transition: opacity 0.6s, transform 0.6s; }
+.timeline-item.visible { opacity: 1; transform: translateY(0); }
+.timeline-dot { position: absolute; left: -5px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px rgba(63,185,80,0.5); border: 2px solid var(--bg); }
+.job-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 4px; }
+.job-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; color: var(--text); }
+.job-period { font-size: 11px; color: var(--green); padding: 4px 12px; border: 1px solid rgba(63,185,80,0.3); border-radius: 2px; white-space: nowrap; }
+.job-company { font-size: 12px; color: var(--cyan); margin-bottom: 14px; }
+.job-bullets { list-style: none; margin-bottom: 14px; }
+.job-bullets li { color: var(--text-dim); font-size: 13px; padding: 3px 0 3px 16px; position: relative; }
+.job-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--green); font-size: 10px; top: 5px; }
+.tech-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.tech-tag { font-size: 11px; padding: 3px 10px; background: var(--bg3); border: 1px solid var(--border); border-radius: 2px; color: var(--text-dim); transition: border-color 0.2s, color 0.2s; }
+.tech-tag:hover { border-color: var(--green-dim); color: var(--green); }
+
+#about { background: var(--bg2); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+.about-text p { color: var(--text-dim); margin-bottom: 16px; font-size: 13px; line-height: 1.9; }
+.about-text p strong { color: var(--green); font-weight: 700; }
+.about-meta { display: flex; flex-direction: column; gap: 14px; }
+.meta-item { display: flex; align-items: center; gap: 16px; padding: 16px 18px; background: var(--bg); border: 1px solid var(--border); border-radius: 4px; transition: border-color 0.2s; }
+.meta-item:hover { border-color: var(--green-dim); }
+.meta-icon { font-size: 18px; flex-shrink: 0; }
+.meta-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.meta-value { font-size: 13px; color: var(--text); margin-top: 2px; }
+.lang-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+.lang-item { background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 14px; text-align: center; transition: border-color 0.2s; }
+.lang-item:hover { border-color: var(--green-dim); }
+.lang-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; color: var(--text); }
+.lang-level { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+.contact-info h3 { font-family: 'Syne', sans-serif; font-size: 24px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
+.contact-info p { color: var(--text-dim); font-size: 13px; line-height: 1.9; margin-bottom: 28px; }
+.contact-links { display: flex; flex-direction: column; gap: 10px; }
+.contact-link { display: flex; align-items: center; gap: 12px; padding: 13px 18px; background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; color: var(--text-dim); text-decoration: none; font-size: 13px; transition: all 0.2s; }
+.contact-link:hover { border-color: var(--green-dim); color: var(--green); transform: translateX(4px); }
+.contact-link-icon { color: var(--green); font-size: 14px; flex-shrink: 0; width: 20px; text-align: center; }
+.contact-form { display: flex; flex-direction: column; gap: 16px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; }
+.form-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.form-input, .form-textarea { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 12px 16px; color: var(--text); font-family: 'Space Mono', monospace; font-size: 13px; transition: border-color 0.2s; outline: none; resize: none; }
+.form-input:focus, .form-textarea:focus { border-color: var(--green-dim); box-shadow: 0 0 0 3px rgba(63,185,80,0.08); }
+.form-textarea { min-height: 120px; }
+
+footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; position: relative; z-index: 1; }
+footer p { font-size: 11px; color: var(--text-muted); }
+footer span { color: var(--green); }
+
+@keyframes fadeInUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
+
+@media (max-width: 900px) {
+  nav { padding: 0 24px; } .hero-terminal { display: none; } .hero-name { font-size: 48px; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; } .container { padding: 0 24px; }
+}
+@media (max-width: 600px) { nav ul { display: none; } .lang-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-logo">ruslan<span>.dev</span></div>
+  <ul>
+    <li><a href="#skills">skills</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#about">about</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <div class="nav-status"><div class="status-dot"></div>open to work</div>
+</nav>
+
+<main>
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-tag"><span>◉</span> DevOps / SRE Engineer — Tallinn, Estonia</div>
+      <h1 class="hero-name">Ruslan<br><span class="accent">Duhhov</span></h1>
+      <p class="hero-role">Infrastructure · <span class="tech">CI/CD</span> · DevSecOps</p>
+      <p class="hero-bio">IT professional with <strong>5+ years</strong> in DevSecOps, SRE, and QA. Experienced in building on-premises Proxmox infrastructures, CI/CD pipelines, containerization, and network administration. Fast learner, passionate about new technologies. Seeking a challenging role in an international team.</p>
+      <div class="hero-links">
+        <a href="mailto:ruslan.duhhov@gmail.com" class="btn btn-primary">✉ Contact me</a>
+        <a href="https://linkedin.com" target="_blank" class="btn btn-outline">↗ LinkedIn</a>
+        <a href="https://github.com" target="_blank" class="btn btn-outline">↗ GitHub</a>
+      </div>
+    </div>
+    <div class="hero-terminal">
+      <div class="terminal-header">
+        <div class="t-dot red"></div><div class="t-dot yellow"></div><div class="t-dot green"></div>
+        <span class="terminal-title">ruslan@devops ~ $</span>
+      </div>
+      <div class="terminal-body">
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd"> cat whoami.json</span></div>
+        <div class="t-output">{</div>
+        <div class="t-output">&nbsp;&nbsp;<span class="t-key">"name"</span>: <span class="t-val">"Ruslan Duhhov"</span>,</div>
+        <div class="t-output">&nbsp;&nbsp;<span class="t-key">"role"</span>: <span class="t-val">"DevOps / SRE"</span>,</div>
+        <div class="t-output">&nbsp;&nbsp;<span class="t-key">"location"</span>: <span class="t-val">"Tallinn 🇪🇪"</span>,</div>
+        <div class="t-output">&nbsp;&nbsp;<span class="t-key">"exp"</span>: <span class="t-val">"5+ years"</span>,</div>
+        <div class="t-output">&nbsp;&nbsp;<span class="t-key">"stack"</span>: [<span class="t-val">"Proxmox"</span>,<span class="t-val">"Docker"</span>,</div>
+        <div class="t-output">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="t-val">"GitLab CI"</span>,<span class="t-val">"MikroTik"</span>],</div>
+        <div class="t-output">&nbsp;&nbsp;<span class="t-key">"status"</span>: <span class="t-val">"open_to_work ✓"</span></div>
+        <div class="t-output">}</div>
+        <br>
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-cmd"> docker ps</span></div>
+        <div class="t-output" style="color:var(--green)">All systems running 🟢</div>
+        <br>
+        <div class="t-line"><span class="t-prompt">$</span><span class="t-cursor"></span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">01 //</span>
+      <h2 class="section-title">Skills</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-header"><span class="skill-name">Proxmox / Virtualization</span><span class="skill-level level-advanced">Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar" data-width="85"></div></div></div>
+      <div class="skill-card"><div class="skill-header"><span class="skill-name">CI/CD · GitLab CI · Jenkins</span><span class="skill-level level-advanced">Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar" data-width="85"></div></div></div>
+      <div class="skill-card"><div class="skill-header"><span class="skill-name">Networking · MikroTik · VPN</span><span class="skill-level level-advanced">Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar" data-width="82"></div></div></div>
+      <div class="skill-card"><div class="skill-header"><span class="skill-name">Docker · Containerization</span><span class="skill-level level-advanced">Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar" data-width="80"></div></div></div>
+      <div class="skill-card"><div class="skill-header"><span class="skill-name">Linux · Windows Server</span><span class="skill-level level-advanced">Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar" data-width="83"></div></div></div>
+      <div class="skill-card"><div class="skill-header"><span class="skill-name">Grafana · Prometheus</span><span class="skill-level level-advanced">Advanced</span></div><div class="skill-bar-bg"><div class="skill-bar" data-width="75"></div></div></div>
+      <div class="skill-card"><div class="skill-header"><span class="skill-name">SonarQube · OWASP ZAP</span><span class="skill-level level-intermediate">Intermediate</span></div><div class="skill-bar-bg"><div class="skill-bar" data-width="62"></div></div></div>
+      <div class="skill-card"><div class="skill-header"><span class="skill-name">Java · Selenium · QA</span><span class="skill-level level-intermediate">Intermediate</span></div><div class="skill-bar-bg"><div class="skill-bar" data-width="60"></div></div></div>
+      <div class="skill-card"><div class="skill-header"><span class="skill-name">Kubernetes</span><span class="skill-level level-beginner">Learning</span></div><div class="skill-bar-bg"><div class="skill-bar" data-width="35"></div></div></div>
+      <div class="skill-card"><div class="skill-header"><span class="skill-name">Terraform</span><span class="skill-level level-beginner">Learning</span></div><div class="skill-bar-bg"><div class="skill-bar" data-width="30"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">02 //</span>
+      <h2 class="section-title">Experience</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-header"><h3 class="job-title">DevOps / SRE Engineer</h3><span class="job-period">09.2024 — 01.2026</span></div>
+        <p class="job-company">Lorex Grupp Estonia · Tallinn · 1 yr 5 mo</p>
+        <ul class="job-bullets">
+          <li>Designed and managed on-premises Proxmox infrastructure (VMs, LXC, Linux/Windows Server)</li>
+          <li>Implemented monitoring stack with Grafana and Prometheus</li>
+          <li>Handled backups, disaster recovery, and system updates</li>
+          <li>Configured routing, firewalls, and VPN for secure network operations</li>
+        </ul>
+        <div class="tech-tags"><span class="tech-tag">Proxmox</span><span class="tech-tag">Docker</span><span class="tech-tag">Kubernetes</span><span class="tech-tag">GitLab CI</span><span class="tech-tag">Jenkins</span><span class="tech-tag">MikroTik</span><span class="tech-tag">VPN</span><span class="tech-tag">Grafana</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-header"><h3 class="job-title">Software Quality Specialist (QA)</h3><span class="job-period">09.2022 — 08.2024</span></div>
+        <p class="job-company">Elisa Eesti AS · Tallinn · 2 yrs</p>
+        <ul class="job-bullets">
+          <li>Developed and maintained automated Java tests with Selenium and Selenide</li>
+          <li>Involved in requirements analysis, test design, and documentation</li>
+          <li>Conducted customer demos and large-scale presentations (100+ attendees)</li>
+          <li>Collaborated with developers, analysts, and PMs to improve product stability</li>
+        </ul>
+        <div class="tech-tags"><span class="tech-tag">Java</span><span class="tech-tag">Selenium</span><span class="tech-tag">Selenide</span><span class="tech-tag">Jenkins</span><span class="tech-tag">Version1</span></div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-header"><h3 class="job-title">Technical Support Specialist</h3><span class="job-period">01.2022 — 09.2022</span></div>
+        <p class="job-company">Elisa Eesti AS · Tallinn · 9 mo</p>
+        <ul class="job-bullets"><li>Provided technical support, troubleshooting hardware and software issues</li></ul>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="job-header"><h3 class="job-title">Freelance IT Technician / SysAdmin</h3><span class="job-period">07.2015 — 12.2021</span></div>
+        <p class="job-company">Self-employed · Tallinn · 6 yrs 6 mo</p>
+        <ul class="job-bullets"><li>System administration, network setup, and hardware troubleshooting</li><li>Web server configuration and database management</li></ul>
+        <div class="tech-tags"><span class="tech-tag">Linux</span><span class="tech-tag">Windows</span><span class="tech-tag">Apache</span><span class="tech-tag">MySQL</span><span class="tech-tag">Samba</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">03 //</span>
+      <h2 class="section-title">About</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a <strong>DevOps/SRE Engineer</strong> based in Tallinn, Estonia, with over 5 years of hands-on experience in infrastructure, automation, and quality assurance.</p>
+        <p>My background spans building robust <strong>on-premises Proxmox environments</strong>, designing CI/CD pipelines with GitLab and Jenkins, and implementing security practices with tools like SonarQube and OWASP ZAP.</p>
+        <p>I thrive in cross-functional teams and enjoy bridging the gap between development and operations — making systems <strong>reliable, observable, and secure</strong>. Actively expanding skills in Kubernetes and Terraform to move into cloud-native infrastructure.</p>
+        <div class="lang-grid">
+          <div class="lang-item"><div class="lang-name">🇬🇧 EN</div><div class="lang-level">Intermediate</div></div>
+          <div class="lang-item"><div class="lang-name">🇪🇪 ET</div><div class="lang-level">Upper-Intermediate</div></div>
+          <div class="lang-item"><div class="lang-name">🇷🇺 RU</div><div class="lang-level">Native</div></div>
+        </div>
+      </div>
+      <div class="about-meta">
+        <div class="meta-item"><span class="meta-icon">📍</span><div><div class="meta-label">Location</div><div class="meta-value">Tallinn, Estonia</div></div></div>
+        <div class="meta-item"><span class="meta-icon">🎓</span><div><div class="meta-label">Education</div><div class="meta-value">Junior Software Developer<br><span style="color:var(--text-muted);font-size:11px">Tallinn Industrial Education Center · 2020–2022</span></div></div></div>
+        <div class="meta-item"><span class="meta-icon">⚡</span><div><div class="meta-label">Total Experience</div><div class="meta-value">5+ years in IT</div></div></div>
+        <div class="meta-item"><span class="meta-icon">🔭</span><div><div class="meta-label">Currently learning</div><div class="meta-value">Kubernetes · Terraform · Cloud</div></div></div>
+        <div class="meta-item"><span class="meta-icon">✅</span><div><div class="meta-label">Status</div><div class="meta-value" style="color:var(--green)">Open to work</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-num">04 //</span>
+      <h2 class="section-title">Contact</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Let's work together</h3>
+        <p>I'm currently open to new opportunities in DevOps, SRE, or infrastructure roles. Feel free to reach out — I usually respond within 24 hours.</p>
+        <div class="contact-links">
+          <a href="mailto:ruslan.duhhov@gmail.com" class="contact-link"><span class="contact-link-icon">✉</span>ruslan.duhhov@gmail.com</a>
+          <a href="tel:+37253595575" class="contact-link"><span class="contact-link-icon">☎</span>+372 535 95575</a>
+          <a href="https://linkedin.com" target="_blank" class="contact-link"><span class="contact-link-icon">in</span>LinkedIn Profile</a>
+          <a href="https://github.com" target="_blank" class="contact-link"><span class="contact-link-icon">⌥</span>GitHub Profile</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-group"><label class="form-label">Your name</label><input type="text" class="form-input" placeholder="John Smith"></div>
+        <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="john@company.com"></div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Hi Ruslan, we have an exciting opportunity..."></textarea></div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;" onclick="alert('To activate this form, connect it to a backend service like Formspree.')">➤ Send Message</button>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <p>Crafted with precision · <span>Ruslan Duhhov</span> © 2026 · Tallinn, Estonia</p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bar = entry.target.querySelector('.skill-bar');
+      if (bar) setTimeout(() => { bar.style.width = bar.dataset.width + '%'; }, 150);
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.skill-card, .timeline-item').forEach(el => observer.observe(el));
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('nav a[href^="#"]');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => { if (window.scrollY >= s.offsetTop - 100) current = s.id; });
+  navLinks.forEach(a => { a.style.color = a.getAttribute('href') === '#' + current ? 'var(--green)' : ''; });
+});
+</script>
+</body>
+</html>
